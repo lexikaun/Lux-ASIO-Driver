@@ -4,7 +4,7 @@
 // Modern visual styles manifest
 1 24 "LuxAsio.manifest"
 
-IDD_CONTROL_PANEL DIALOGEX 0, 0, 300, 160
+IDD_CONTROL_PANEL DIALOGEX 0, 0, 300, 226
 STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Lux ASIO Hardware Setup"
 FONT 9, "Segoe UI"
@@ -12,14 +12,19 @@ BEGIN
     GROUPBOX        "Hardware Devices", -1, 10, 10, 280, 80
     LTEXT           "Output Device:", -1, 20, 30, 60, 10
     COMBOBOX        IDC_RENDER_DEVICE, 80, 28, 200, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
-    
+
     LTEXT           "Input Device:", -1, 20, 55, 60, 10
     COMBOBOX        IDC_CAPTURE_DEVICE, 80, 53, 200, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 
-    GROUPBOX        "Performance", -1, 10, 100, 280, 45
+    GROUPBOX        "Performance", -1, 10, 100, 280, 92
     LTEXT           "Buffer Size:", -1, 20, 120, 60, 10
-    COMBOBOX        IDC_BUFFER_SIZE, 80, 118, 100, 100, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_BUFFER_SIZE, 80, 118, 100, 140, CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
 
-    DEFPUSHBUTTON   "Apply", IDC_APPLY, 190, 118, 40, 14
-    PUSHBUTTON      "Cancel", IDC_CANCEL, 240, 118, 40, 14
+    AUTOCHECKBOX    "Exclusive mode (lowest latency, single app)", IDC_EXCLUSIVE_MODE, 20, 138, 200, 12
+    AUTOCHECKBOX    "Kernel streaming (bypass DSP - lowest latency, single app)", IDC_KS_MODE, 20, 152, 260, 12
+    LTEXT           "", IDC_HW_INFO, 20, 168, 260, 10
+
+    LTEXT           "", IDC_STATUS, 12, 198, 180, 10
+    DEFPUSHBUTTON   "Apply", IDC_APPLY, 198, 196, 40, 14
+    PUSHBUTTON      "Cancel", IDC_CANCEL, 248, 196, 40, 14
 END

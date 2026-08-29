@@ -40,19 +40,28 @@ public:
     virtual ASIOError outputReady() override;
 
 private:
+    static long ClampBufferSize(long size);
+
     bool m_active;
     bool m_buffersCreated;
-    ASIOSampleRate m_sampleRate;
+    ASIOSampleRate m_sampleRate;   // device mix-format rate (shared mode is not rate-switchable)
     ASIOCallbacks* m_callbacks;
-    
+    bool m_timeInfoMode;           // host accepted kAsioSupportsTimeInfo
+
     WasapiBackend* m_backend;
     AudioThread* m_audioThread;
-    
-    ASIOBufferInfo* m_bufferInfos;
+    KsRenderStream* m_ks;          // kernel-streaming render (opt-in)
+    bool m_ksRequested = false;
+    std::wstring m_renderEndpointId;
+
+    // The channels the host actually activated in createBuffers(), honoring
+    // ASIOBufferInfo::isInput/channelNum (any subset, any order).
+    std::vector<ChannelSlot> m_inputSlots;
+    std::vector<ChannelSlot> m_outputSlots;
     long m_bufferSize;
-    
-    long m_numInputs;
+
+    long m_numInputs;              // device channel counts (from WASAPI formats)
     long m_numOutputs;
     HWND m_sysRef;
-    long m_preferredBufferSize; // Persisted user selection from Control Panel
+    long m_preferredBufferSize;    // Persisted user selection from Control Panel
 };
